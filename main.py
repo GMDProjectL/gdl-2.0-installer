@@ -6,7 +6,7 @@ import signal
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
-from PySide6.QtCore import QObject, Slot, QCoreApplication, Signal, Property
+from PySide6.QtCore import QObject, Slot, Signal, Property
 import sys
 import os
 
