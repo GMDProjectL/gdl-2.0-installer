@@ -17,21 +17,28 @@ Kirigami.Page {
             anchors.fill: parent
             spacing: Kirigami.Units.gridUnit * 2
 
+            Kirigami.Heading {
+                level: 3
+                text: translatorBackend.translate("You're about to install an easy-to-use Linux distribution.", translatorBackend.language)
+            }
+
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignCenter
 
-                width: Kirigami.Units.gridUnit * 20
-                height: Kirigami.Units.gridUnit * 20
-                color: Kirigami.Theme.highlightColor
+                width: Kirigami.Units.gridUnit * 10
+                height: Kirigami.Units.gridUnit * 10
+                color: "transparent"
                 radius: Kirigami.Units.gridUnit / 2
 
-                Text {
+                Image {
+                    width: parent.width
+                    height: parent.height
+
                     anchors.centerIn: parent
-                    text: "Image Placeholder"
-                    color: Kirigami.Theme.highlightColor.text
-                    font.pixelSize: Kirigami.Units.fontSizes.large
+                    source: (imageProvider ? imageProvider.adaptiveImagePath('main_page') + "?" + imageProvider.theme : "")
+                    fillMode: Image.PreserveAspectFit
                 }
             }
 

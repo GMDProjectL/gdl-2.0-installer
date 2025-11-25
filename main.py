@@ -9,6 +9,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 import sys
 import os
 
+from src.image_provider import AdaptiveImageProvider
 from src.translator_backend_wrapper import TranslatorBackendWrapper
 
 def main():
@@ -25,7 +26,10 @@ def main():
         os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
 
     translator_backend = TranslatorBackendWrapper()
+    image_provider = AdaptiveImageProvider()
+
     engine.rootContext().setContextProperty("translatorBackend", translator_backend)
+    engine.rootContext().setContextProperty("imageProvider", image_provider)
 
     engine.load(QUrl('ui/MainWindow.qml'))
 
