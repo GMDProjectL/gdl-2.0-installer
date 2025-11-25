@@ -3,7 +3,17 @@
     "Welcome to Project GDL Installer!": "Добро пожаловать в установщик GDL!",
     "Exit": "Выход",
     "Next": "Далее",
+    "Back": "Назад",
     "You're about to install an easy-to-use Linux distribution.": "Вам предстоит установить простой в использовании дистрибутив Linux.",
     "About": "О программе",
-    "Project GDL installer written in Python/Kirigami": "Установщик Project GDL, написанный на Python/Kirigami"
+    "Project GDL installer written in Python/Kirigami": "Установщик Project GDL, написанный на Python/Kirigami",
+    "Tell us more about yourself": "Расскажите нам поподробнее о Вас",
+    "This way, you'll be able to log into your computer right after installation.": "Таким образом, Вы сможете войти в свой компьютер сразу после установки.",
+    "Your username:": "Ваше имя пользователя:",
+    "Your password:": "Ваш пароль:",
+    "Repeat your password:": "Повторите пароль:",
+    "Think of the name for your computer:": "Придумайте имя для вашего компьютера:",
+    "Automatic login, only ask me when doing administrative stuff": "Автоматический вход, спрашивать только при выполнении административных задач",
+    "Please fill in all fields.": "Пожалуйста, заполните все поля.",
+    "Passwords do not match.": "Пароли не совпадают."
 }

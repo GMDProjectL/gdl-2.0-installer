@@ -11,6 +11,7 @@ import os
 
 from src.image_provider import AdaptiveImageProvider
 from src.translator_backend_wrapper import TranslatorBackendWrapper
+from src.user_profile_store import UserProfileStore
 
 def main():
     app = QGuiApplication(sys.argv)
@@ -31,9 +32,11 @@ def main():
 
     translator_backend = TranslatorBackendWrapper()
     image_provider = AdaptiveImageProvider()
+    user_profile_store = UserProfileStore()
 
     engine.rootContext().setContextProperty("translatorBackend", translator_backend)
     engine.rootContext().setContextProperty("imageProvider", image_provider)
+    engine.rootContext().setContextProperty("userProfileStore", user_profile_store)
 
     engine.load(QUrl('ui/MainWindow.qml'))
 

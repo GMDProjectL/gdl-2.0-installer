@@ -11,8 +11,11 @@ Kirigami.ApplicationWindow {
     minimumWidth: 900
     minimumHeight: 600
 
-    width: minimumWidth
+    maximumWidth: minimumWidth
+    maximumHeight: minimumHeight
+
     height: minimumHeight
+    width: minimumWidth
 
     title: translatorBackend.translate("Project GDL Installer", translatorBackend.language)
 
@@ -20,6 +23,9 @@ Kirigami.ApplicationWindow {
         id: aboutPage
         About {}
     }
+
+    pageStack.defaultColumnWidth: width
+    pageStack.globalToolBar.showNavigationButtons: Kirigami.ApplicationHeaderStyle.NoNavigationButtons
 
     globalDrawer: Kirigami.GlobalDrawer {
         isMenu: true
@@ -45,20 +51,16 @@ Kirigami.ApplicationWindow {
         id: mainPageComponent
         Pages.MainPage {
             onNextPressed: {
-                console.log("Next from MainPage")
-                var newPage = testPageComponent.createObject(root.pageStack)
-                root.pageStack.replace(newPage)
+                root.pageStack.push(userProfilePageComponent)
             }
         }
     }
 
     Component {
-        id: testPageComponent
-        Pages.TestPage {
+        id: userProfilePageComponent
+        Pages.UserProfilePage {
             onBackPressed: {
-                console.log("Back from TestPage")
-                var newPage = mainPageComponent.createObject(root.pageStack)
-                root.pageStack.replace(newPage)
+                root.pageStack.goBack()
             }
         }
     }

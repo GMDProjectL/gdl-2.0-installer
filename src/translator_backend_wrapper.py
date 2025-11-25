@@ -23,10 +23,8 @@ class TranslatorBackendWrapper(QObject):
         self._current_language = code
         self._translator.change_language(code)
         
-        print(f"Language switched to: {code}")
         self.languageChanged.emit()
 
     @Slot(str, str, result=str)
     def translate(self, text, trigger=""): 
-        print(f"Translating '{text}' for language '{self._current_language}'")
         return self._translator.translate(text)
