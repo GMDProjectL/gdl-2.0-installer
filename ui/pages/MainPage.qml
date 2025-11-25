@@ -88,6 +88,7 @@ Kirigami.Page {
                     icon.name: "arrow-right"
                     icon.width: 10
                     leftPadding: 20
+                    rightPadding: 20
                     
                     onClicked: {
                         mainPage.nextPressed()

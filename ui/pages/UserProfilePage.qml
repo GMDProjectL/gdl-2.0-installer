@@ -154,6 +154,7 @@ Kirigami.Page {
                     icon.name: "arrow-left"
                     icon.width: 10
                     leftPadding: 20
+                    rightPadding: 20
                     
                     onClicked: {
                         userProfilePage.backPressed()
@@ -165,6 +166,7 @@ Kirigami.Page {
                     icon.name: "arrow-right"
                     icon.width: 10
                     leftPadding: 20
+                    rightPadding: 20
                     enabled: userProfilePage.nextButtonEnabled
                     
                     onClicked: {
