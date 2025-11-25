@@ -83,6 +83,18 @@ Kirigami.ApplicationWindow {
             onBackPressed: {
                 root.pageStack.goBack()
             }
+            onNextPressed: {
+                root.pageStack.push(destinationPageComponent)
+            }
+        }
+    }
+
+    Component {
+        id: destinationPageComponent
+        Pages.DestinationPage {
+            onBackPressed: {
+                root.pageStack.goBack()
+            }
         }
     }
 
