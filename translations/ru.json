@@ -18,5 +18,15 @@
     "Please fill in all fields.": "Пожалуйста, заполните все поля.",
     "Passwords do not match.": "Пароли не совпадают.",
     "Exit Installer": "Выход из установщика",
-    "Are you sure you want to exit the installer? Your changes will not be saved.": "Вы уверены, что хотите выйти из установщика? Ваши изменения не будут сохранены."
+    "Are you sure you want to exit the installer? Your changes will not be saved.": "Вы уверены, что хотите выйти из установщика? Ваши изменения не будут сохранены.",
+    "Where do you want to install the system?": "Куда Вы хотите установить систему?",
+    "Which partitions will be used to install the system?": "Какие разделы будут использоваться для установки системы?",
+    "Select the drive:": "Выберите диск:",
+    "Repartition the drive": "Переразметить диск",
+    "Partition method:": "Метод разметки:",
+    "Automatic": "Автоматический",
+    "Manual": "Вручную",
+    "Select boot partition:": "Выберите загрузочный раздел:",
+    "Select root partition:": "Выберите корневой раздел:",
+    "<b>Warning:</b> everything on this drive will be erased!": "<b>Внимание:</b> всё на этом диске будет стёрто!"
 }
