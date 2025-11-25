@@ -32,7 +32,7 @@ Kirigami.Page {
             spacing: Kirigami.Units.gridUnit * 2
             Layout.fillWidth: true
             
-            RowLayout {
+            RowLayout { // just in case if you want to place something side by side in future
                 Layout.fillWidth: true
                 Layout.maximumWidth: 1000 
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
