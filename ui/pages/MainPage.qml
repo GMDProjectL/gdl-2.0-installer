@@ -43,10 +43,15 @@ Kirigami.Page {
                     id: languageComboBox
                     Layout.alignment: Qt.AlignLeft
                     model: ["English (en)", "Русский (ru)"]
-                    currentIndex: translatorBackend.language === "ru" ? 1 : 0
+                    currentIndex: 0
                     
                     onActivated: {
-                        translatorBackend.language = currentIndex === 0 ? "en" : "ru"
+                        if (currentIndex === 0) {
+                            translatorBackend.language = "en"
+                        }
+                        else if (currentIndex === 1) {
+                            translatorBackend.language = "ru"
+                        }
                     }
                 }
 

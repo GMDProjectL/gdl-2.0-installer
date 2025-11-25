@@ -6,41 +6,10 @@ import signal
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
-from PySide6.QtCore import QObject, Slot, Signal, Property
 import sys
 import os
 
-from src.translator_backend import TranslatorBackend
-
-
-class TranslatorBackendWrapper(QObject):
-    languageChanged = Signal()
-
-    def __init__(self):
-        super().__init__()
-        self._translator = TranslatorBackend()
-        self._current_language = "en"
-
-    @Property(str, notify=languageChanged)
-    def language(self):
-        return self._current_language
-
-    @language.setter
-    def language(self, code):
-        if self._current_language == code:
-            return
-        
-        self._current_language = code
-        self._translator.change_language(code)
-        
-        print(f"Language switched to: {code}")
-        self.languageChanged.emit()
-
-    @Slot(str, str, result=str)
-    def translate(self, text, trigger=""): 
-        print(f"Translating '{text}' for language '{self._current_language}'")
-        return self._translator.translate(text)
-
+from src.translator_backend_wrapper import TranslatorBackendWrapper
 
 def main():
     app = QGuiApplication(sys.argv)
