@@ -3,7 +3,7 @@ import os
 import sys
 import signal
 
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
 import sys
@@ -14,6 +14,8 @@ from src.translator_backend_wrapper import TranslatorBackendWrapper
 
 def main():
     app = QGuiApplication(sys.argv)
+    app.setWindowIcon(QIcon('images/run-build-install.svg'))
+
     engine = QQmlApplicationEngine()
 
     # including QML dirs, just in case

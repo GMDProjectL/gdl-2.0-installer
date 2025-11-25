@@ -25,6 +25,31 @@ Kirigami.ApplicationWindow {
     }
 
     Component {
+        id: aboutPage
+        About {}
+    }
+
+    globalDrawer: Kirigami.GlobalDrawer {
+        isMenu: true
+        actions: [
+            Kirigami.Action {
+                id: aboutAction
+                icon.name: "help-about-symbolic"
+                text: translatorBackend.translate("About", translatorBackend.language)
+                onTriggered: {
+                    root.pageStack.layers.push(aboutPage)
+                }
+            },
+            Kirigami.Action {
+                id: exitAction
+                icon.name: "application-exit-symbolic"
+                text: translatorBackend.translate("Exit", translatorBackend.language)
+                onTriggered: Qt.quit()
+            }
+        ]
+    }
+
+    Component {
         id: testPageComponent
         Pages.TestPage {
             onBackPressed: {
