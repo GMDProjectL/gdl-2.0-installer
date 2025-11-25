@@ -6,7 +6,11 @@ import "../components" as Components
 
 Kirigami.Page {
     id: mainPage
-    title: translatorBackend.translate("Welcome to Project GDL Installer!", translatorBackend.language)
+    title: translatorBackend.translate(
+        "Welcome to Project GDL Installer!", 
+        translatorBackend.language
+    )
+    signal nextPressed()
 
     Rectangle {
         id: contentArea
@@ -19,7 +23,10 @@ Kirigami.Page {
 
             Kirigami.Heading {
                 level: 3
-                text: translatorBackend.translate("You're about to install an easy-to-use Linux distribution.", translatorBackend.language)
+                text: translatorBackend.translate(
+                    "You're about to install an easy-to-use Linux distribution.", 
+                    translatorBackend.language
+                )
             }
 
             Rectangle {
@@ -37,14 +44,18 @@ Kirigami.Page {
                     height: parent.height
 
                     anchors.centerIn: parent
-                    source: (imageProvider ? imageProvider.adaptiveImagePath('main_page') + "?" + imageProvider.theme : "")
+                    source: (
+                        imageProvider 
+                        ? imageProvider.adaptiveImagePath('main_page') + "?" + imageProvider.theme 
+                        : ""
+                    )
                     fillMode: Image.PreserveAspectFit
                 }
             }
 
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Kirigami.Units.gridUnit * 4
+                Layout.preferredHeight: Kirigami.Units.gridUnit * 2
 
                 ComboBox {
                     id: languageComboBox
@@ -80,7 +91,7 @@ Kirigami.Page {
                     leftPadding: 20
                     
                     onClicked: {
-                        console.log("Next clicked")
+                        mainPage.nextPressed()
                     }
                 }
             }

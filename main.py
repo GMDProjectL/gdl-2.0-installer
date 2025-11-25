@@ -16,12 +16,14 @@ def main():
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
+    # including QML dirs, just in case
     engine.addImportPath('ui/components')
     engine.addImportPath('ui/pages')
     engine.addImportPath('ui')
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
+    # setting qqc style
     if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
         os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
 
