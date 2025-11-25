@@ -14,17 +14,6 @@ Kirigami.ApplicationWindow {
     title: translatorBackend.translate("Project GDL Installer", translatorBackend.language)
 
     Component {
-        id: mainPageComponent
-        Pages.MainPage {
-            onNextPressed: {
-                console.log("Next from MainPage")
-                var newPage = testPageComponent.createObject(root.pageStack)
-                root.pageStack.replace(newPage)
-            }
-        }
-    }
-
-    Component {
         id: aboutPage
         About {}
     }
@@ -47,6 +36,17 @@ Kirigami.ApplicationWindow {
                 onTriggered: Qt.quit()
             }
         ]
+    }
+
+    Component {
+        id: mainPageComponent
+        Pages.MainPage {
+            onNextPressed: {
+                console.log("Next from MainPage")
+                var newPage = testPageComponent.createObject(root.pageStack)
+                root.pageStack.replace(newPage)
+            }
+        }
     }
 
     Component {
