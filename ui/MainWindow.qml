@@ -24,6 +24,27 @@ Kirigami.ApplicationWindow {
         About {}
     }
 
+    property bool exitConfirmationDialogActive: false
+
+    Component {
+        id: exitConfirmationDialogComponent
+        ExitConfirmation {
+            onRefuseClosing: {
+                root.exitConfirmationDialogActive = false
+            }
+        }
+    }
+
+    onClosing: {
+        if (root.exitConfirmationDialogActive) {
+            return
+        }
+        var exitDialog = exitConfirmationDialogComponent.createObject(root)
+        exitDialog.open()
+        root.exitConfirmationDialogActive = true
+        close.accepted = false
+    }
+
     pageStack.defaultColumnWidth: width
     pageStack.globalToolBar.showNavigationButtons: Kirigami.ApplicationHeaderStyle.NoNavigationButtons
 

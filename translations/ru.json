@@ -4,6 +4,7 @@
     "Exit": "Выход",
     "Next": "Далее",
     "Back": "Назад",
+    "Cancel": "Отмена",
     "You're about to install an easy-to-use Linux distribution.": "Вам предстоит установить простой в использовании дистрибутив Linux.",
     "About": "О программе",
     "Project GDL installer written in Python/Kirigami": "Установщик Project GDL, написанный на Python/Kirigami",
@@ -13,7 +14,9 @@
     "Your password:": "Ваш пароль:",
     "Repeat your password:": "Повторите пароль:",
     "Think of the name for your computer:": "Придумайте имя для вашего компьютера:",
-    "Automatic login, only ask me when doing administrative stuff": "Автоматический вход, спрашивать только при выполнении административных задач",
+    "Automatic login, only ask password when doing administrative stuff": "Автоматический вход, спрашивать пароль только при выполнении административных задач",
     "Please fill in all fields.": "Пожалуйста, заполните все поля.",
-    "Passwords do not match.": "Пароли не совпадают."
+    "Passwords do not match.": "Пароли не совпадают.",
+    "Exit Installer": "Выход из установщика",
+    "Are you sure you want to exit the installer? Your changes will not be saved.": "Вы уверены, что хотите выйти из установщика? Ваши изменения не будут сохранены."
 }

@@ -123,7 +123,7 @@ Kirigami.Page {
                             onCheckedChanged: userProfileStore.automaticLogin = checked
                             
                             text: translatorBackend.translate(
-                                "Automatic login, only ask me when doing administrative stuff", 
+                                "Automatic login, only ask password when doing administrative stuff", 
                                 translatorBackend.language
                             )
                         }
