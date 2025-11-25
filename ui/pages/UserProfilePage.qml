@@ -64,8 +64,8 @@ Kirigami.Page {
                             id: usernameField
                             leftPadding: 10
                             Layout.fillWidth: true
-                            text: userProfileStore.username
-                            onTextChanged: userProfileStore.username = text
+                            text: userProfileBackend.username
+                            onTextChanged: userProfileBackend.username = text
                         }
 
                         Label {
@@ -80,8 +80,8 @@ Kirigami.Page {
                             leftPadding: 10 
                             Layout.fillWidth: true
                             echoMode: TextInput.Password
-                            text: userProfileStore.password
-                            onTextChanged: userProfileStore.password = text
+                            text: userProfileBackend.password
+                            onTextChanged: userProfileBackend.password = text
                         }
 
                         Label {
@@ -96,8 +96,8 @@ Kirigami.Page {
                             leftPadding: 10 
                             Layout.fillWidth: true
                             echoMode: TextInput.Password
-                            text: userProfileStore.repeatPassword
-                            onTextChanged: userProfileStore.repeatPassword = text
+                            text: userProfileBackend.repeatPassword
+                            onTextChanged: userProfileBackend.repeatPassword = text
                         }
 
                         Label {
@@ -112,15 +112,15 @@ Kirigami.Page {
                             id: hostnameField
                             leftPadding: 10 
                             Layout.fillWidth: true
-                            text: userProfileStore.hostname
-                            onTextChanged: userProfileStore.hostname = text
+                            text: userProfileBackend.hostname
+                            onTextChanged: userProfileBackend.hostname = text
                         }
 
                         Switch {
                             Layout.topMargin: 20
                             leftPadding: 0
-                            checked: userProfileStore.automaticLogin
-                            onCheckedChanged: userProfileStore.automaticLogin = checked
+                            checked: userProfileBackend.automaticLogin
+                            onCheckedChanged: userProfileBackend.automaticLogin = checked
                             
                             text: translatorBackend.translate(
                                 "Automatic login, only ask password when doing administrative stuff", 

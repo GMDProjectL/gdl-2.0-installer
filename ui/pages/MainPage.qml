@@ -43,8 +43,8 @@ Kirigami.Page {
 
                     anchors.centerIn: parent
                     source: (
-                        imageProvider 
-                        ? imageProvider.adaptiveImagePath('main_page') + "?" + imageProvider.theme 
+                        adaptiveImageProvider 
+                        ? adaptiveImageProvider.adaptiveImagePath('main_page') + "?" + adaptiveImageProvider.theme 
                         : ""
                     )
                     fillMode: Image.PreserveAspectFit

@@ -14,9 +14,9 @@ Kirigami.Page {
     signal nextPressed()
 
     property bool nextButtonEnabled: (
-        driveProvider.partitionMethod == 0 
-        ? driveProvider.drive !== -1
-        : driveProvider.bootPartition !== -1 && driveProvider.rootPartition !== -1 
+        driveBackend.partitionMethod == 0 
+        ? driveBackend.drive !== -1
+        : driveBackend.bootPartition !== -1 && driveBackend.rootPartition !== -1 
     )
 
     Rectangle {
@@ -59,27 +59,27 @@ Kirigami.Page {
                             ComboBox {
                                 id: driveComboBox
                                 Layout.alignment: Qt.AlignLeft
-                                model: driveProvider.drives
-                                currentIndex: driveProvider.drive
+                                model: driveBackend.drives
+                                currentIndex: driveBackend.drive
                                 Layout.fillWidth: true
                                 
                                 onActivated: {
-                                    driveProvider.drive = currentIndex
+                                    driveBackend.drive = currentIndex
                                 }
                             }
 
                             Button {
                                 Layout.leftMargin: 10
-                                visible: driveComboBox.currentIndex > -1 && driveProvider.partitionMethod == 1
+                                visible: driveComboBox.currentIndex > -1 && driveBackend.partitionMethod == 1
                                 text: translatorBackend.translate("Repartition the drive", translatorBackend.language) 
                                 onClicked: {
-                                    driveProvider.openPartitionManager()
+                                    driveBackend.openPartitionManager()
                                 }
                             }
                         }
 
                         ColumnLayout {
-                            visible: driveProvider.drive !== -1
+                            visible: driveBackend.drive !== -1
 
                             Label { 
                                 Layout.topMargin: 10
@@ -93,18 +93,18 @@ Kirigami.Page {
                                     translatorBackend.translate("Automatic", translatorBackend.language),
                                     translatorBackend.translate("Manual", translatorBackend.language)
                                 ]
-                                currentIndex: driveProvider.partitionMethod
+                                currentIndex: driveBackend.partitionMethod
                                 Layout.fillWidth: true
                                 
                                 onActivated: {
-                                    driveProvider.partitionMethod = currentIndex
+                                    driveBackend.partitionMethod = currentIndex
                                 }
                             }
                         }
 
                         ColumnLayout {
                             Layout.fillWidth: true
-                            visible: driveProvider.partitionMethod == 1
+                            visible: driveBackend.partitionMethod == 1
 
                             Label { 
                                 Layout.topMargin: 10
@@ -114,12 +114,12 @@ Kirigami.Page {
                             ComboBox {
                                 id: bootPartitionComboBox
                                 Layout.alignment: Qt.AlignLeft
-                                model: driveProvider.partitions
-                                currentIndex: driveProvider.bootPartition
+                                model: driveBackend.partitions
+                                currentIndex: driveBackend.bootPartition
                                 Layout.fillWidth: true
                                 
                                 onActivated: {
-                                    driveProvider.bootPartition = currentIndex
+                                    driveBackend.bootPartition = currentIndex
                                 }
                             }
                             
@@ -131,19 +131,19 @@ Kirigami.Page {
                             ComboBox {
                                 id: rootPartitionComboBox
                                 Layout.alignment: Qt.AlignLeft
-                                model: driveProvider.partitions
-                                currentIndex: driveProvider.rootPartition
+                                model: driveBackend.partitions
+                                currentIndex: driveBackend.rootPartition
                                 Layout.fillWidth: true
                                 
                                 onActivated: {
-                                    driveProvider.rootPartition = currentIndex
+                                    driveBackend.rootPartition = currentIndex
                                 }
                             }
                         }
 
                         RowLayout {
                             Layout.topMargin: 20
-                            visible: driveProvider.partitionMethod == 0 && driveProvider.drive !== -1
+                            visible: driveBackend.partitionMethod == 0 && driveBackend.drive !== -1
 
                             Kirigami.Icon {
                                 Layout.maximumHeight: 16
@@ -152,7 +152,10 @@ Kirigami.Page {
                             Label {
                                 verticalAlignment: Text.AlignVCenter
                                 color: Kirigami.Theme.neutralTextColor
-                                text: translatorBackend.translate("<b>Warning:</b> everything on this drive will be erased!", translatorBackend.language) 
+                                text: translatorBackend.translate(
+                                    "<b>Warning:</b> everything on this drive will be erased!", 
+                                    translatorBackend.language
+                                ) 
                             }
                         }
                     }

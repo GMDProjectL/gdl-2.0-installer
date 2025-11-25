@@ -1,6 +1,6 @@
 from PySide6.QtCore import QObject, Property, Signal
 
-class UserProfileStore(QObject):
+class UserProfileBackend(QObject):
     usernameChanged = Signal()
     passwordChanged = Signal()
     repeatPasswordChanged = Signal()

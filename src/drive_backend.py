@@ -4,7 +4,7 @@ import subprocess
 from typing import List
 from PySide6.QtCore import QObject, Property, Signal, Slot
 
-class DriveProvider(QObject):
+class DriveBackend(QObject):
     drivesChanged = Signal()
     driveChanged = Signal()
     partitionsChanged = Signal()

@@ -9,10 +9,10 @@ from PySide6.QtQml import QQmlApplicationEngine
 import sys
 import os
 
-from src.image_provider import AdaptiveImageProvider
+from src.adaptive_image_provider import AdaptiveImageProvider
 from src.translator_backend_wrapper import TranslatorBackendWrapper
-from src.user_profile_store import UserProfileStore
-from src.drive_provider import DriveProvider
+from src.user_profile_backend import UserProfileBackend
+from src.drive_backend import DriveBackend
 
 def main():
     app = QGuiApplication(sys.argv)
@@ -33,13 +33,13 @@ def main():
 
     translator_backend = TranslatorBackendWrapper()
     image_provider = AdaptiveImageProvider()
-    user_profile_store = UserProfileStore()
-    drive_provider = DriveProvider()
+    user_profile_backend = UserProfileBackend()
+    drive_backend = DriveBackend()
 
     engine.rootContext().setContextProperty("translatorBackend", translator_backend)
-    engine.rootContext().setContextProperty("imageProvider", image_provider)
-    engine.rootContext().setContextProperty("userProfileStore", user_profile_store)
-    engine.rootContext().setContextProperty("driveProvider", drive_provider)
+    engine.rootContext().setContextProperty("adaptiveImageProvider", image_provider)
+    engine.rootContext().setContextProperty("userProfileBackend", user_profile_backend)
+    engine.rootContext().setContextProperty("driveBackend", drive_backend)
 
     engine.load(QUrl('ui/MainWindow.qml'))
 
