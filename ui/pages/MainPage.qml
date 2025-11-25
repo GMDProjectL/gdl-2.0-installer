@@ -86,6 +86,7 @@ Kirigami.Page {
                 Button {
                     text: translatorBackend.translate("Next", translatorBackend.language)
                     icon.name: "arrow-right"
+                    icon.width: 10
                     leftPadding: 20
                     
                     onClicked: {
