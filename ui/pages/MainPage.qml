@@ -30,12 +30,10 @@ Kirigami.Page {
             }
 
             Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
                 Layout.alignment: Qt.AlignCenter
 
-                width: Kirigami.Units.gridUnit * 10
-                height: Kirigami.Units.gridUnit * 10
+                width: Kirigami.Units.gridUnit * 20
+                height: Kirigami.Units.gridUnit * 20
                 color: "transparent"
                 radius: Kirigami.Units.gridUnit / 2
 

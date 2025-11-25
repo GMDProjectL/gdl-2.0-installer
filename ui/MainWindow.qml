@@ -8,8 +8,11 @@ import "pages" as Pages
 Kirigami.ApplicationWindow {
     id: root
 
-    width: 900
-    height: 600
+    minimumWidth: 900
+    minimumHeight: 600
+
+    width: minimumWidth
+    height: minimumHeight
 
     title: translatorBackend.translate("Project GDL Installer", translatorBackend.language)
 
