@@ -1,9 +1,8 @@
-import subprocess
-from PySide6.QtCore import QObject, Property, Signal, Slot
-from typing import List, Optional
 import io
 import os
-from enum import Enum
+import subprocess
+from typing import List
+from PySide6.QtCore import QObject, Property, Signal, Slot
 
 class DriveProvider(QObject):
     drivesChanged = Signal()
