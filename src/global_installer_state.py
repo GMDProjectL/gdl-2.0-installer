@@ -3,6 +3,7 @@ from src.drive_backend import DriveBackend
 from src.translator_backend import TranslatorBackend
 from src.translator_backend_wrapper import TranslatorBackendWrapper
 from src.adaptive_image_provider import AdaptiveImageProvider
+from src.additional_tweaks_backend import AdditionalTweaksBackend
 
 class GlobalInstallerState():
     _instance = None
@@ -12,6 +13,7 @@ class GlobalInstallerState():
     translator_backend: TranslatorBackend
     translator_backend_wrapper: TranslatorBackendWrapper
     adaptive_image_provider: AdaptiveImageProvider
+    additional_tweaks_backend: AdditionalTweaksBackend
 
     def __new__(cls):
         if cls._instance is None:
@@ -26,6 +28,7 @@ class GlobalInstallerState():
             self.translator_backend = TranslatorBackend()
             self.translator_backend_wrapper = TranslatorBackendWrapper()
             self.adaptive_image_provider = AdaptiveImageProvider()
+            self.additional_tweaks_backend = AdditionalTweaksBackend()
             self._initialized = True
         
     @classmethod

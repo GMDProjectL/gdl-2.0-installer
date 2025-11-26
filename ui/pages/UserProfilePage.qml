@@ -130,7 +130,7 @@ Kirigami.Page {
 
                         Label {
                             Layout.topMargin: 20
-                            color: "red"
+                            color: Kirigami.Theme.negativeTextColor
                             visible: userProfilePage.allFieldsFilled && !userProfilePage.passwordsMatch
                             text: translatorBackend.translate("Passwords do not match.", translatorBackend.language)
                         }

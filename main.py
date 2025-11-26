@@ -37,6 +37,7 @@ def main():
     engine.rootContext().setContextProperty("translatorBackend", global_installer_state.translator_backend_wrapper)
     engine.rootContext().setContextProperty("adaptiveImageProvider", global_installer_state.adaptive_image_provider)
     engine.rootContext().setContextProperty("userProfileBackend", global_installer_state.user_profile_backend)
+    engine.rootContext().setContextProperty("additionalTweaksBackend", global_installer_state.additional_tweaks_backend)
     engine.rootContext().setContextProperty("driveBackend", global_installer_state.drive_backend)
 
     engine.load(QUrl('ui/MainWindow.qml'))
