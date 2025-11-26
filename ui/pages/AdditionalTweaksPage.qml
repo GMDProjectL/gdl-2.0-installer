@@ -56,7 +56,7 @@ Kirigami.Page {
                             // games
                             Kirigami.ListSectionHeader {
                                 text: translatorBackend.translate("Games", translatorBackend.language)
-                                Layout.minimumWidth: 600
+                                Layout.fillWidth: true
                             }
 
                             Components.OptionCheckBox {
