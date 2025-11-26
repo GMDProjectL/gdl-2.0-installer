@@ -35,6 +35,15 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    Component {
+        id: installConfirmationDialogComponent
+        InstallConfirmation {
+            onYes: {
+                console.log("Oh yeahhhh")
+            }
+        }
+    }
+
     onClosing: {
         if (root.exitConfirmationDialogActive) {
             return
@@ -106,6 +115,10 @@ Kirigami.ApplicationWindow {
         Pages.AdditionalTweaksPage {
             onBackPressed: {
                 root.pageStack.goBack()
+            }
+            onDonePressed: {
+                var installDialog = installConfirmationDialogComponent.createObject(root)
+                installDialog.open()
             }
         }
     }

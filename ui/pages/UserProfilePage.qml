@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import "../components" as Components
 
@@ -21,6 +21,10 @@ Kirigami.Page {
                                   hostnameField.text.length > 0
     
     property bool nextButtonEnabled: allFieldsFilled && passwordsMatch
+
+    Component.onCompleted: {
+        usernameField.forceActiveFocus()
+    }
 
     Rectangle {
         id: contentArea
@@ -114,6 +118,9 @@ Kirigami.Page {
                             Layout.fillWidth: true
                             text: userProfileBackend.hostname
                             onTextChanged: userProfileBackend.hostname = text
+                            onAccepted: {
+                                nextButton.click()
+                            }
                         }
 
                         Switch {
@@ -162,6 +169,7 @@ Kirigami.Page {
                 }
 
                 Button {
+                    id: nextButton
                     text: translatorBackend.translate("Next", translatorBackend.language)
                     icon.name: "arrow-right"
                     icon.width: 10

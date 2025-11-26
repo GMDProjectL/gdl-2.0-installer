@@ -1,5 +1,6 @@
 import QtQuick
-import QtQuick.Controls as Controls
+import QtQuick.Controls
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 
 Kirigami.Dialog {
@@ -8,26 +9,46 @@ Kirigami.Dialog {
     standardButtons: Kirigami.Dialog.NoButton
     padding: 20
 
-    customFooterActions: [
-        Kirigami.Action {
+    footer: RowLayout {
+        Layout.fillWidth: true
+        spacing: 10
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        Button {
             text: translatorBackend.translate("Exit", translatorBackend.language)
-            onTriggered: {
+            icon.name: "application-exit-symbolic"
+            leftPadding: 10
+            rightPadding: 10
+            Layout.bottomMargin: 10
+
+            onClicked: {
                 exitConfirmationDialog.accepted()
                 exitConfirmationDialog.close()
             }
-        },
-        Kirigami.Action {
+        }
+
+        Button {
             text: translatorBackend.translate("Cancel", translatorBackend.language)
-            onTriggered: {
+            icon.name: "dialog-cancel"
+
+            leftPadding: 10
+            rightPadding: 10
+            Layout.rightMargin: 10
+            Layout.bottomMargin: 10
+
+            onClicked: {
                 exitConfirmationDialog.refuseClosing()
                 exitConfirmationDialog.close()
             }
         }
-    ]
+    }
 
     signal refuseClosing()
 
-    Controls.Label {
+    Label {
         text: translatorBackend.translate(
             "Are you sure you want to exit the installer? Your changes will not be saved.",
             translatorBackend.language

@@ -5,6 +5,7 @@
     "Next": "Далее",
     "Back": "Назад",
     "Cancel": "Отмена",
+    "Done": "Готово",
     "You're about to install an easy-to-use Linux distribution.": "Вам предстоит установить простой в использовании дистрибутив Linux.",
     "About": "О программе",
     "Project GDL installer written in Python/Kirigami": "Установщик Project GDL, написанный на Python/Kirigami",
@@ -52,5 +53,9 @@
     "Multimedia/Streaming": "Мультимедиа/Стриминг",
     "Drivers/Kernel": "Драйверы/Ядро",
     "Office": "Офис",
-    "Development": "Разработка"
+    "Development": "Разработка",
+    "Final decision": "Окончательное решение",
+    "Yes, install!": "Да, установить!",
+    "No, not yet": "Пока что нет",
+    "Are you sure you want to install the system?": "Вы уверены, что хотите установить систему?"
 }

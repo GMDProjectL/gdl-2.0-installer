@@ -9,10 +9,6 @@ from PySide6.QtQml import QQmlApplicationEngine
 import sys
 import os
 
-from src.adaptive_image_provider import AdaptiveImageProvider
-from src.translator_backend_wrapper import TranslatorBackendWrapper
-from src.user_profile_backend import UserProfileBackend
-from src.drive_backend import DriveBackend
 from src.global_installer_state import GlobalInstallerState
 
 def main():
@@ -39,6 +35,7 @@ def main():
     engine.rootContext().setContextProperty("userProfileBackend", global_installer_state.user_profile_backend)
     engine.rootContext().setContextProperty("additionalTweaksBackend", global_installer_state.additional_tweaks_backend)
     engine.rootContext().setContextProperty("driveBackend", global_installer_state.drive_backend)
+    engine.rootContext().setContextProperty("internetCheckerBackend", global_installer_state.internet_checker_backend)
 
     engine.load(QUrl('ui/MainWindow.qml'))
 

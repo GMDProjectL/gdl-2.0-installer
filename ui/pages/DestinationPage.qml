@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import "../components" as Components
 
@@ -18,6 +18,10 @@ Kirigami.Page {
         ? driveBackend.drive !== -1
         : driveBackend.bootPartition !== -1 && driveBackend.rootPartition !== -1 
     )
+
+    Component.onCompleted: {
+        driveComboBox.forceActiveFocus()
+    }
 
     Rectangle {
         id: contentArea

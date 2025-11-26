@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import "../components" as Components
 
@@ -19,7 +19,6 @@ Kirigami.Page {
 
         ColumnLayout {
             anchors.fill: parent
-            spacing: Kirigami.Units.gridUnit * 2
 
             Kirigami.Heading {
                 level: 3
@@ -29,11 +28,24 @@ Kirigami.Page {
                 )
             }
 
+            Label {
+                text: translatorBackend.translate(
+                    "Please connect to the internet, we can't connect to github.com and archlinux.org.", 
+                    translatorBackend.language
+                )
+                color: Kirigami.Theme.neutralTextColor
+                visible: !internetCheckerBackend.isInternetAvailable
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+
             Rectangle {
                 Layout.alignment: Qt.AlignCenter
 
-                width: Kirigami.Units.gridUnit * 20
-                height: Kirigami.Units.gridUnit * 20
+                width: Kirigami.Units.gridUnit * 15
+                height: Kirigami.Units.gridUnit * 15
                 color: "transparent"
                 radius: Kirigami.Units.gridUnit / 2
 
@@ -49,6 +61,10 @@ Kirigami.Page {
                     )
                     fillMode: Image.PreserveAspectFit
                 }
+            }
+
+            Item {
+                Layout.fillHeight: true
             }
 
             RowLayout {
@@ -75,8 +91,11 @@ Kirigami.Page {
 
                 Button {
                     text: translatorBackend.translate("Exit", translatorBackend.language)
-                    leftPadding: 20
-                    rightPadding: 20
+                    leftPadding: 15
+                    rightPadding: 23
+                    icon.width: 25
+                    icon.height: 15
+                    icon.name: "application-exit-symbolic"
                     
                     onClicked: {
                         Qt.quit()
@@ -87,8 +106,8 @@ Kirigami.Page {
                     text: translatorBackend.translate("Next", translatorBackend.language)
                     icon.name: "arrow-right"
                     icon.width: 10
-                    leftPadding: 20
-                    rightPadding: 20
+                    leftPadding: 30
+                    rightPadding: 35
                     
                     onClicked: {
                         mainPage.nextPressed()
