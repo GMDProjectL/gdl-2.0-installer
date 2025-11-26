@@ -95,6 +95,18 @@ Kirigami.ApplicationWindow {
             onBackPressed: {
                 root.pageStack.goBack()
             }
+            onNextPressed: {
+                root.pageStack.push(additionalTweaksPageComponent)
+            }
+        }
+    }
+
+    Component {
+        id: additionalTweaksPageComponent
+        Pages.AdditionalTweaksPage {
+            onBackPressed: {
+                root.pageStack.goBack()
+            }
         }
     }
 
