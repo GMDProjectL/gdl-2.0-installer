@@ -43,7 +43,7 @@ Kirigami.Page {
                     Kirigami.Heading {
                         level: 3
                         text: translatorBackend.translate(
-                            "Which partitions will be used to install the system?", 
+                            "It's important to use your space wisely.", 
                             translatorBackend.language
                         )
                     }
