@@ -52,7 +52,9 @@ def apply_settings():
 
 @app.route("/logs")
 def get_logs():
-    return jsonify(logs.new_lines)
+    old_logs = deepcopy(logs.new_lines)
+    logs.new_lines.clear()
+    return jsonify(old_logs)
 
 @app.route("/result")
 def get_result():
@@ -65,3 +67,60 @@ def get_stage():
 @app.route("/progress")
 def get_progress():
     return jsonify(progress.__dict__)
+
+
+@app.route("/test/give_error", methods=["POST"])
+def give_error():
+    if not request.is_json:
+        result.error = True
+        result.message = "Sorry, but you haven't provided the correct JSON."
+        return jsonify(result.__dict__)
+    
+    result.error = True
+    result.message = request.json['message']
+    
+    return jsonify(result.__dict__)
+
+@app.route("/test/give_success", methods=["POST"])
+def give_success():
+    if not request.is_json:
+        result.error = True
+        result.message = "Sorry, but you haven't provided the correct JSON."
+        return jsonify(result.__dict__)
+    
+    result.success = True
+    
+    return jsonify(result.__dict__)
+
+@app.route("/test/set_stage", methods=["POST"])
+def set_stage():
+    if not request.is_json:
+        result.error = True
+        result.message = "Sorry, but you haven't provided the correct JSON."
+        return jsonify(result.__dict__)
+    
+    stage.stage = request.json['stage']
+    
+    return jsonify(result.__dict__)
+
+@app.route("/test/set_progress", methods=["POST"])
+def set_progress():
+    if not request.is_json:
+        result.error = True
+        result.message = "Sorry, but you haven't provided the correct JSON."
+        return jsonify(result.__dict__)
+    
+    progress.progress = request.json['progress']
+    
+    return jsonify(result.__dict__)
+
+@app.route("/test/send_logs", methods=["POST"])
+def send_logs():
+    if not request.is_json:
+        result.error = True
+        result.message = "Sorry, but you haven't provided the correct JSON."
+        return jsonify(result.__dict__)
+    
+    logs.new_lines.append(request.json['logs'])
+    
+    return jsonify(result.__dict__)

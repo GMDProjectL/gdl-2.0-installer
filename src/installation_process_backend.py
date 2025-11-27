@@ -1,11 +1,10 @@
-import json
+import os
 import time
 import requests
-from src.global_installer_state import GlobalInstallerState
 from PySide6.QtCore import QObject, Property, Signal, Slot, QThread
 
 class ServerEventThread(QThread):
-    logsChanged = Signal(list)
+    logsChanged = Signal(str)
     progressChanged = Signal(float)
     stageChanged = Signal(int)
     error = Signal(str)
@@ -40,6 +39,8 @@ class ServerEventThread(QThread):
             if result_request.json()['success']:
                 self.success.emit()
                 self.stop_checking_loop()
+            
+            time.sleep(2)
 
 class InstallationProcessBackend(QObject):
     logsChanged = Signal()
@@ -48,22 +49,27 @@ class InstallationProcessBackend(QObject):
     error = Signal(str)
     success = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, local_server_url, installer_state, parent=None):
         super().__init__(parent)
+        self._installer_state = installer_state
         self._installation_logs = "Installation logs go here..."
         self._progress = 0
         self._stage = 0
 
-        self.server_event_thread = ServerEventThread(GlobalInstallerState.get_instance().local_server_url)
+        self.server_event_thread = ServerEventThread(local_server_url)
         self.server_event_thread.logsChanged.connect(self.on_new_log)
         self.server_event_thread.progressChanged.connect(self.on_new_progress)
         self.server_event_thread.stageChanged.connect(self.on_new_stage)
         self.server_event_thread.error.connect(self.error)
         self.server_event_thread.success.connect(self.success)
+
+    @Slot()
+    def reboot(self):
+        os.system('reboot')
     
     @Slot()
     def sendSettings(self):
-        installer = GlobalInstallerState.get_instance()
+        installer = self._installer_state
         user_profile = installer.user_profile_backend
         drive = installer.drive_backend
         tweaks = installer.additional_tweaks_backend
@@ -113,7 +119,7 @@ class InstallationProcessBackend(QObject):
     
     @Slot(str)
     def on_new_log(self, logs):
-        self._installation_logs + '\n' + logs
+        self._installation_logs += '\n' + logs
         self.logsChanged.emit()
     
 
@@ -126,7 +132,7 @@ class InstallationProcessBackend(QObject):
     def on_new_progress(self, prog):
         if self._progress < prog:
             self._progress = prog
-            self.logsChanged.emit()
+            self.progressChanged.emit()
     
 
     # stage highligts
@@ -136,6 +142,6 @@ class InstallationProcessBackend(QObject):
     
     @Slot(int)
     def on_new_stage(self, stage):
-        if self._stage < stage:
+        if self._stage != stage:
             self._stage = stage
-            self.logsChanged.emit()
+            self.stageChanged.emit()

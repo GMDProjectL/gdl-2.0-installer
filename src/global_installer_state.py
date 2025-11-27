@@ -26,7 +26,7 @@ class GlobalInstallerState():
             self.adaptive_image_provider = AdaptiveImageProvider()
             self.additional_tweaks_backend = AdditionalTweaksBackend()
             self.internet_checker_backend = InternetCheckerBackend()
-            self.installation_process_backend = InstallationProcessBackend()
+            self.installation_process_backend = InstallationProcessBackend(self.local_server_url, self)
             self._initialized = True
         
     @classmethod

@@ -38,6 +38,7 @@ Kirigami.ApplicationWindow {
             onYes: {
                 root.pageStack.clear()
                 root.pageStack.push(installationProcessPageComponent)
+                installationProcessBackend.sendSettings()
             }
         }
     }

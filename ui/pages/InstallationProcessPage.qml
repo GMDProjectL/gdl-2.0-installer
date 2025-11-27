@@ -16,6 +16,15 @@ Kirigami.Page {
         Components.InstallationError {}
     }
 
+    Component {
+        id: installationSucceededDialogComponent
+        Components.InstallationSucceeded {
+            onAccepted: {
+                installationProcessBackend.reboot()
+            }
+        }
+    }
+
     Connections {
         target: installationProcessBackend
 
@@ -23,6 +32,11 @@ Kirigami.Page {
             var errorDialog = errorDialogComponent.createObject(installationProcessPage)
             errorDialog.errorText = errorMsg
             errorDialog.open()
+        }
+
+        function onSuccess() {
+            var successDialog = installationSucceededDialogComponent.createObject(installationProcessPage)
+            successDialog.open()
         }
     }
 
