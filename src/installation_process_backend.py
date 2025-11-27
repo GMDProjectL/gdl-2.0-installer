@@ -8,8 +8,8 @@ class InstallationProcessBackend(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._installation_logs = "Installation logs go here..."
-        self._progress = 0.1
-        self._stage = 2
+        self._progress = 0
+        self._stage = 0
     
     # logs
     @Property(str, notify=logsChanged)
