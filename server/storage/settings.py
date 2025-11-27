@@ -16,7 +16,7 @@ class Settings():
             self.username = ""
             self.password = ""
             self.hostname = ""
-            self.autoLoginEnabled = False
+            self.auto_login_enabled = False
 
             # destination
             self.drive = ""

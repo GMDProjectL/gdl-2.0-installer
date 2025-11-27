@@ -15,6 +15,7 @@ class Result():
         if not hasattr(self, '_initialized'):
             self.error = False
             self.success = False
+            self.message = ""
             self._initialized = True
     
     @classmethod

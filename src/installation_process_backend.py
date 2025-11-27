@@ -5,16 +5,13 @@ class InstallationProcessBackend(QObject):
     progressChanged = Signal()
     stageChanged = Signal()
     error = Signal(str)
+    success = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self._installation_logs = "Installation logs go here..."
         self._progress = 0.25
         self._stage = 1
-
-    @Slot()
-    def giveTestError(self):
-        self.error.emit("Test error")
     
     # logs
     @Property(str, notify=logsChanged)
