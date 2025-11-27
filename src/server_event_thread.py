@@ -39,4 +39,4 @@ class ServerEventThread(QThread):
                 self.success.emit()
                 self.stop_checking_loop()
             
-            time.sleep(2)
+            time.sleep(0.7)
