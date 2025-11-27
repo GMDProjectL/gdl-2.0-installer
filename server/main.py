@@ -8,6 +8,8 @@ from storage.stage import Stage
 from storage.progress import Progress
 from copy import deepcopy
 
+from installation.install_thread import InstallThread
+
 settings = Settings.get_instance()
 logs = Logs.get_instance()
 result = Result.get_instance()
@@ -45,6 +47,17 @@ def apply_settings():
         result.message = format_exc()
         return jsonify(result.__dict__)
     
+    res = deepcopy(result.__dict__)
+    res['success'] = True
+    
+    return jsonify(res)
+
+@app.route("/run_installation", methods=["POST"])
+def run_installation():
+    global settings
+    install_thread = InstallThread(settings)
+    install_thread.start()
+
     res = deepcopy(result.__dict__)
     res['success'] = True
     

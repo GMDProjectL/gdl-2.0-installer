@@ -1,7 +1,5 @@
 from PySide6.QtCore import QObject, Slot, Signal, Property
-
 from src.translator_backend import TranslatorBackend
-
 
 class TranslatorBackendWrapper(QObject):
     languageChanged = Signal()

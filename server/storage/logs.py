@@ -22,3 +22,7 @@ class Logs():
             cls()
         
         return cls._instance
+    
+    @classmethod
+    def add_log(cls, log_text: str):
+        Logs.get_instance().new_lines.append(log_text)
