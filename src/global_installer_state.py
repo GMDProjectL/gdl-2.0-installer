@@ -10,13 +10,6 @@ from src.installation_process_backend import InstallationProcessBackend
 class GlobalInstallerState():
     _instance = None
 
-    user_profile_backend: UserProfileBackend
-    drive_backend: DriveBackend
-    translator_backend: TranslatorBackend
-    translator_backend_wrapper: TranslatorBackendWrapper
-    adaptive_image_provider: AdaptiveImageProvider
-    additional_tweaks_backend: AdditionalTweaksBackend
-
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(GlobalInstallerState, cls).__new__(cls)
@@ -25,6 +18,7 @@ class GlobalInstallerState():
 
     def __init__(self):
         if not hasattr(self, '_initialized'):
+            self.local_server_url = 'http://127.0.0.1:5000'
             self.user_profile_backend = UserProfileBackend()
             self.drive_backend = DriveBackend()
             self.translator_backend = TranslatorBackend()
