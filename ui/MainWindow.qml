@@ -11,9 +11,6 @@ Kirigami.ApplicationWindow {
     minimumWidth: 900
     minimumHeight: 600
 
-    maximumWidth: minimumWidth
-    maximumHeight: minimumHeight
-
     height: minimumHeight
     width: minimumWidth
 
