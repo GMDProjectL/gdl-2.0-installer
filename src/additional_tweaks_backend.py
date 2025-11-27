@@ -1,3 +1,4 @@
+import subprocess
 from PySide6.QtCore import QObject, Property, Signal
 
 class AdditionalTweaksBackend(QObject):
@@ -26,7 +27,7 @@ class AdditionalTweaksBackend(QObject):
         self._installObs = False
         self._installKdenlive = False
         self._installGpuRecorder = False
-        self._installNvidia = False
+        self._installNvidia = self.detect_nvidia_gpu()
         self._forceNvidiaPerf = False
         self._useNobaraKernel = False
         self._installVscode = False
@@ -36,6 +37,34 @@ class AdditionalTweaksBackend(QObject):
         self._installPlasmaSdk = False
         self._installQtCreator = False
         self._installQBitTorrent = False
+    
+    def get_lspci(self):
+        '''lspci -k
+        '''
+        process = subprocess.run(['lspci', '-k'], capture_output=True)
+        lspci = process.stdout.decode()
+
+        return lspci
+
+
+    def is_nouveau(self):
+        lspci = self.get_lspci()
+        if 'in use: nouveau' in lspci:
+            return True
+        
+        return False
+
+
+    def is_nvidia(self):
+        lspci = self.get_lspci()
+        if 'in use: nvidia' in lspci:
+            return True
+        
+        return False
+    
+    def detect_nvidia_gpu(self):
+        return self.is_nouveau() or self.is_nvidia()
+
 
     # steam
     @Property(bool, notify=installSteamChanged)
