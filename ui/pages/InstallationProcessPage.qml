@@ -11,6 +11,21 @@ Kirigami.Page {
         translatorBackend.language
     )
 
+    Component {
+        id: errorDialogComponent
+        Components.InstallationError {}
+    }
+
+    Connections {
+        target: installationProcessBackend
+
+        function onError(errorMsg) {
+            var errorDialog = errorDialogComponent.createObject(installationProcessPage)
+            errorDialog.errorText = errorMsg
+            errorDialog.open()
+        }
+    }
+
     Rectangle {
         id: contentArea
         anchors.fill: parent
