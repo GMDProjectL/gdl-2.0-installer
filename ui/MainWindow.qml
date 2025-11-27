@@ -39,7 +39,8 @@ Kirigami.ApplicationWindow {
         id: installConfirmationDialogComponent
         InstallConfirmation {
             onYes: {
-                console.log("Oh yeahhhh")
+                root.pageStack.clear()
+                root.pageStack.push(installationProcessPageComponent)
             }
         }
     }
@@ -121,6 +122,11 @@ Kirigami.ApplicationWindow {
                 installDialog.open()
             }
         }
+    }
+
+    Component {
+        id: installationProcessPageComponent
+        Pages.InstallationProcessPage {}
     }
 
     pageStack.initialPage: mainPageComponent
