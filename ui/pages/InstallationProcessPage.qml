@@ -33,8 +33,9 @@ Kirigami.Page {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     padding: 10
+                    readOnly: true
                     
-                    font.family: "Monospace"
+                    font.family: "Adwaita Mono"
                     text: installationProcessBackend.installationLogs
                 }
             }
@@ -56,18 +57,19 @@ Kirigami.Page {
                     Label { 
                         text: translatorBackend.translate("Copying base system", translatorBackend.language)
                         Layout.fillWidth: true
+                        opacity: installationProcessBackend.stage >= 1 ? 1 : 0.5
                     }
 
                     Label { 
                         text: translatorBackend.translate("Setting up", translatorBackend.language)
                         Layout.fillWidth: true
-                        opacity: 0.5
+                        opacity: installationProcessBackend.stage >= 2 ? 1 : 0.5
                     }
 
                     Label { 
                         text: translatorBackend.translate("Installing additional features", translatorBackend.language)
                         Layout.fillWidth: true
-                        opacity: 0.5
+                        opacity: installationProcessBackend.stage >= 3 ? 1 : 0.5
                     }
                 }
             }
