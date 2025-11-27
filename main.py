@@ -36,6 +36,7 @@ def main():
     engine.rootContext().setContextProperty("additionalTweaksBackend", global_installer_state.additional_tweaks_backend)
     engine.rootContext().setContextProperty("driveBackend", global_installer_state.drive_backend)
     engine.rootContext().setContextProperty("internetCheckerBackend", global_installer_state.internet_checker_backend)
+    engine.rootContext().setContextProperty("installationProcessBackend", global_installer_state.installation_process_backend)
 
     engine.load(QUrl('ui/MainWindow.qml'))
 

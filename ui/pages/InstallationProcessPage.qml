@@ -35,7 +35,7 @@ Kirigami.Page {
                     padding: 10
                     
                     font.family: "Monospace"
-                    text: "Test logs oh yeah\nTest logs oh yeah\nTest logs oh yeah\nTest logs oh yeah\nTest logs oh yeah\nTest logs oh yeah\nTest logs oh yeah\n"
+                    text: installationProcessBackend.installationLogs
                 }
             }
 
@@ -46,7 +46,7 @@ Kirigami.Page {
 
                 ProgressBar {
                     Layout.fillWidth: true
-                    value: 0.3
+                    value: installationProcessBackend.progress
                 }
 
                 RowLayout {

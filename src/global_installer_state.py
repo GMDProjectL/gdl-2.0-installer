@@ -5,6 +5,7 @@ from src.translator_backend_wrapper import TranslatorBackendWrapper
 from src.adaptive_image_provider import AdaptiveImageProvider
 from src.additional_tweaks_backend import AdditionalTweaksBackend
 from src.internet_checker_backend import InternetCheckerBackend
+from src.installation_process_backend import InstallationProcessBackend
 
 class GlobalInstallerState():
     _instance = None
@@ -31,6 +32,7 @@ class GlobalInstallerState():
             self.adaptive_image_provider = AdaptiveImageProvider()
             self.additional_tweaks_backend = AdditionalTweaksBackend()
             self.internet_checker_backend = InternetCheckerBackend()
+            self.installation_process_backend = InstallationProcessBackend()
             self._initialized = True
         
     @classmethod
