@@ -8,7 +8,7 @@ from storage.result import Result
 
 class Basesystem(ProcessUtils):
     _instance = None
-    _total_size_regex = re.compile(r"Total size is ([0-9,]+) bytes") 
+    _total_size_regex = re.compile(r"total size is ([0-9,]+)") 
 
     def __new__(cls):
         if cls._instance is None:
