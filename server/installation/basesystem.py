@@ -82,6 +82,8 @@ class Basesystem(ProcessUtils):
         flags_for_exceptions = map(lambda x: '--exclude='+x, exceptions)
 
         final_progress_number = 0.3
+
+        print("Get ready for rsync")
         
         for update in self.rsync_with_progress(from_dir, root + '/', ['-ah', '--info=progress2'] + flags_for_exceptions):
             if update['type'] == 'progress':
@@ -98,6 +100,8 @@ class Basesystem(ProcessUtils):
 
             elif update['type'] == 'completed':
                 print(update['message'])
+
+        print("rsync done")
 
         return True
 
