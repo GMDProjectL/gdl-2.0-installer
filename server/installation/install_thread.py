@@ -17,7 +17,8 @@ class InstallThread():
     def run(self):
         mounts = Mounts.get_instance()
         mountpoints = mounts.get_mounts(self.settings.drive)
-        system_source = os.getenv("CUSTOM_SYSTEM_SOURCE", "/run/media/airootfs")
+        system_source = os.getenv("CUSTOM_SYSTEM_SOURCE", "/run/archiso/airootfs")
+        boot_source = os.getenv("CUSTOM_SYSTEM_SOURCE", "/run/archiso/bootmnt")
 
         if mountpoints == False:
             Result.get_instance().error = True
