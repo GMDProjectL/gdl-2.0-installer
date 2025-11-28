@@ -51,3 +51,8 @@ class Basesystem(ProcessUtils):
                 "/var/cache/*", "/var/lib/systemd/coredump/*"], 
             from_dir, root + '/'
         )
+
+    def remove_autologin(self, root: str):
+        path = root + '/etc/sddm.conf.d/autologin.conf'
+        if os.path.exists(path):
+            os.remove(path)

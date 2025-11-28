@@ -30,6 +30,15 @@ class ProcessUtils:
         fd = stream.fileno()
         fl = fcntl.fcntl(fd, fcntl.F_GETFL)
         fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+    
+    def run_command_in_chroot(self, command: list, root: str) -> tuple[int, str, str]:
+        '''
+        Runs command with accurate stdout/stderr buffering in chroot.
+
+        Returns a tuple(code, stdout, stderr), where stdout and stderr
+        contain the full output as decoded strings.
+        '''
+        return self.run_command(['arch-chroot', root] + command)
 
     def run_command(self, command: list, cwd: str = None) -> tuple[int, str, str]:
         '''

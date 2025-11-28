@@ -54,6 +54,10 @@ class InstallThread():
             Result.get_instance().error = True
             Result.get_instance().message = 'Failed to copy base system.'
             return
+        
+        self.basesystem.remove_autologin(root_mountpoint)
+
+        
 
     
     def start(self):
