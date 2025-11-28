@@ -35,7 +35,7 @@ class Configuration:
     
     def copy_boot_files(self):
         result = ProcessUtils.get_instance().run_command([
-            'cp', '-r', self._boot_files_location + '.', self._root + '/boot/'
+            'cp', '-r', self._boot_files_location + '/.', self._root + '/boot/'
         ])
 
         return result[0] == 0
@@ -120,6 +120,28 @@ class Configuration:
             return False
         
         return self.change_user_password(username, password)
+    
+    def setup_autologin(self, username: str):
+        try:
+            with open(f'{self._root}/etc/sddm.conf.d/autologin.conf', 'w') as f:
+                f.write(f'[Autologin]\nUser={username}\nSession=plasma')
+
+            return True
+        
+        except:
+            Logs.add_log(format_exc())
+
+        return False
+    
+    def remove_autologin(self):
+        try:
+            os.remove(self._root + '/etc/sddm.conf.d/autologin.conf')
+
+            return True
+        except:
+            Logs.add_log(format_exc())
+
+        return False
     
     def set_hostname(self, hostname: str):
         try:

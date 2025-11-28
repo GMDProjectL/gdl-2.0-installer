@@ -136,6 +136,17 @@ class InstallThread():
         
         Progress.get_instance().progress = 0.57
 
+        if Settings.get_instance().auto_login_enabled:
+            if not configuration.setup_autologin(Settings.get_instance().username):
+                Result.get_instance().error = True
+                Result.get_instance().message = 'Failed to setup autologin.'
+                return
+        else:
+            if not configuration.remove_autologin():
+                Result.get_instance().error = True
+                Result.get_instance().message = 'Failed to remove autologin.'
+                return
+
         if not configuration.set_hostname(Settings.get_instance().hostname):
             Result.get_instance().error = True
             Result.get_instance().message = 'Failed to set hostname.'
