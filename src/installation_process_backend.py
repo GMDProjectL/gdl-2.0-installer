@@ -94,7 +94,7 @@ class InstallationProcessBackend(QObject):
     
     @Slot(float)
     def on_new_progress(self, prog):
-        if self._progress < prog:
+        if self._progress != prog:
             self._progress = prog
             self.progressChanged.emit()
     

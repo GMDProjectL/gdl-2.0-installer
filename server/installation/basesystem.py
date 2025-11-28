@@ -17,6 +17,7 @@ class Basesystem(ProcessUtils):
 
     def __init__(self):
         if not hasattr(self, '_initialized'):
+            self.smoothed_progress = 0.0
             self._initialized = True
     
     @classmethod
@@ -103,12 +104,19 @@ class Basesystem(ProcessUtils):
         flags_for_exceptions = list(map(lambda x: '--exclude='+x, exceptions))
 
         final_progress_number = 0.3
+        SMOOTHING_FACTOR = 0.2
 
         print("Get ready for rsync")
         
         for update in self.rsync_with_progress(from_dir, root + '/', ['-ah', '--info=progress2'] + flags_for_exceptions):
             if update['type'] == 'progress':
-                Progress.get_instance().progress = (update['percent'] / 100) * final_progress_number
+                current_absolute_progress = (update['percent'] / 100) * final_progress_number
+                
+                self.smoothed_progress = (SMOOTHING_FACTOR * current_absolute_progress) + \
+                                         ((1 - SMOOTHING_FACTOR) * self.smoothed_progress)
+                
+                Progress.get_instance().progress = self.smoothed_progress
+                
                 print(f"Progress: {update['percent']}% | Speed: {update['speed']} | ETA: {update['eta']}")
 
             elif update['type'] == 'message':
@@ -122,6 +130,7 @@ class Basesystem(ProcessUtils):
             elif update['type'] == 'completed':
                 print(update['message'])
 
+        Progress.get_instance().progress = final_progress_number
         print("rsync done")
 
         return True
