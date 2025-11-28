@@ -27,13 +27,13 @@ class Pacman(ProcessUtils):
         return self.run_command_in_chroot(['pacman-key', '--init'], root)
     
     def update_all_packages(self, root: str):
-        return self.run_command_in_chroot(['pacman', '-Syu'], root)
+        return self.run_command_in_chroot(['pacman', '-Syu', '--noconfirm'], root)
     
     def install_packages(self, root: str, packages: list[str]):
-        return self.run_command_in_chroot(['pacman', '-S'] + packages, root)
+        return self.run_command_in_chroot(['pacman', '-S', '--noconfirm'] + packages, root)
     
     def remove_packages(self, root: str, packages: list[str]):
-        return self.run_command_in_chroot(['pacman', '-R'] + packages, root)
+        return self.run_command_in_chroot(['pacman', '-R', '--noconfirm'] + packages, root)
     
     def build_and_install_aur_packages(self, root: str, packages: list[str]):
-        return self.run_command_in_chroot(['yay', '-S'] + packages, root)
+        return self.run_command_in_chroot(['yay', '-S', '--noconfirm'] + packages, root)
