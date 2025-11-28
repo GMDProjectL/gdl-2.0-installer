@@ -5,7 +5,7 @@ from storage.result import Result
 from installation.mounts import Mounts
 from installation.disks import Disks
 from installation.process_utils import ProcessUtils
-import time
+import os
 import threading
 
 class InstallThread():
@@ -17,6 +17,7 @@ class InstallThread():
     def run(self):
         mounts = Mounts.get_instance()
         mountpoints = mounts.get_mounts(self.settings.drive)
+        system_source = os.getenv("CUSTOM_SYSTEM_SOURCE", "/run/media/airootfs")
 
         if mountpoints == False:
             Result.get_instance().error = True
@@ -50,14 +51,12 @@ class InstallThread():
             Result.get_instance().message = 'Failed to mount boot partition.'
             return
         
-        if not self.basesystem.copy_system_to_root('/', root_mountpoint):
+        if not self.basesystem.copy_system_to_root(system_source, root_mountpoint):
             Result.get_instance().error = True
             Result.get_instance().message = 'Failed to copy base system.'
             return
         
-        self.basesystem.remove_autologin(root_mountpoint)
-
-        
+        self.basesystem.remove_autologin(root_mountpoint)        
 
     
     def start(self):
