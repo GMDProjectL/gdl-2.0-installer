@@ -40,26 +40,47 @@ class Basesystem(ProcessUtils):
                 universal_newlines=True,
                 bufsize=1
             )
-            progress_pattern = re.compile(
-                r'^\s*(?P<bytes_transferred>[\d,\.]+)\s+(?P<percent>\d+)%\s+'
-                r'(?P<speed>[\d\.]+ ?[KMGT]?B/s)\s+(?P<eta>\d+:\d+:\d+|\d+:\d{2})\s+'
-                r'\((?P<xfr>xfr#\d+),\s*(?P<to_chk>to-chk=\d+/\d+)\)$'
-            )
 
             for line in process.stdout:
-                match = progress_pattern.match(line.strip())
-                if match:
-                    yield {
-                        'type': 'progress',
-                        'bytes_transferred': match.group('bytes_transferred'),
-                        'percent': int(match.group('percent')),
-                        'speed': match.group('speed'),
-                        'eta': match.group('eta'),
-                        'xfr': match.group('xfr'),
-                        'to_chk': match.group('to_chk')
-                    }
+                stripped_line = line.strip()
+
+                if '%' in stripped_line and '(' in stripped_line and ')' in stripped_line: #most likely a progress report
+                    try:
+                        parts = stripped_line.split()
+
+                        if len(parts) >= 6:
+                            bytes_transferred = parts[0]
+                            percent = int(parts[1].replace('%', ''))
+                            speed = parts[2]
+                            eta = parts[3]
+
+                            xfr_to_chk_raw = " ".join(parts[4:])
+
+                            inner_content = xfr_to_chk_raw.strip('()')
+                            inner_parts = [p.strip() for p in inner_content.split(',', 1)]
+
+                            if len(inner_parts) == 2:
+                                xfr = inner_parts[0]
+                                to_chk = inner_parts[1]
+
+                                yield {
+                                    'type': 'progress',
+                                    'bytes_transferred': bytes_transferred,
+                                    'percent': percent,
+                                    'speed': speed,
+                                    'eta': eta,
+                                    'xfr': xfr,
+                                    'to_chk': to_chk
+                                }
+                            else:
+                                yield {'type': 'message', 'content': stripped_line}
+                        else:
+                            yield {'type': 'message', 'content': stripped_line}
+                    except (ValueError, IndexError):
+                        # i can't parse ok then it's just a message lol
+                        yield {'type': 'message', 'content': stripped_line}
                 else:
-                    yield {'type': 'message', 'content': line.strip()}
+                    yield {'type': 'message', 'content': stripped_line}
 
             process.wait()
 
