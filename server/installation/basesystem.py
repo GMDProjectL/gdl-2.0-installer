@@ -79,7 +79,7 @@ class Basesystem(ProcessUtils):
             "/home/*","/boot/*", "/var/lib/libvirt/*", 
             "/var/cache/*", "/var/lib/systemd/coredump/*"]
         
-        flags_for_exceptions = map(lambda x: '--exclude='+x, exceptions)
+        flags_for_exceptions = list(map(lambda x: '--exclude='+x, exceptions))
 
         final_progress_number = 0.3
 
