@@ -29,8 +29,6 @@ class Basesystem:
             cls()
         
         return cls._instance
-    
-    # --- rsync Utilities ---
 
     def _parse_size_string(self, size_str: str) -> int:
         """Helper to convert size string ('1,234,567') to int."""
