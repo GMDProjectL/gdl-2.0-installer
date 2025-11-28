@@ -1,6 +1,7 @@
 from installation.basesystem import Basesystem
 from storage.settings import Settings
 from storage.logs import Logs
+from storage.stage import Stage
 from storage.result import Result
 from installation.mounts import Mounts
 from installation.disks import Disks
@@ -56,6 +57,8 @@ class InstallThread():
             Result.get_instance().error = True
             Result.get_instance().message = 'Failed to copy base system.'
             return
+        
+        Stage.get_instance().stage = 1
         
         self.basesystem.remove_autologin(root_mountpoint)        
 
