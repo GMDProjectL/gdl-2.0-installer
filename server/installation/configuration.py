@@ -148,3 +148,20 @@ class Configuration:
             Logs.add_log(format_exc())
 
         return False
+    
+    def create_sudoers_file(self, username: str):
+        sudoers_d = f'{self._root}/etc/sudoers.d'
+
+        try:
+            if not os.path.exists(sudoers_d):
+                os.makedirs(sudoers_d)
+
+            with open(f'{sudoers_d}/00_{username}', 'w') as f:
+                f.write(f'{username} ALL=(ALL) ALL')
+
+            return True
+        
+        except:
+            Logs.add_log(format_exc())
+
+        return False

@@ -8,6 +8,8 @@ from installation.mounts import Mounts
 from installation.disks import Disks
 from installation.configuration import Configuration
 from installation.process_utils import ProcessUtils
+from installation.pacman import Pacman
+from installation.tweaks.tweaks import Tweaks
 import os
 import threading
 
@@ -147,8 +149,36 @@ class InstallThread():
             Result.get_instance().message = 'Failed to set hostname.'
             return
         
+        if not configuration.create_sudoers_file(Settings.get_instance().username):
+            Result.get_instance().error = True
+            Result.get_instance().message = 'Failed to create sudoers file.'
+            return
+        
         Progress.get_instance().progress = 0.6
         Stage.get_instance().stage = 2
+
+        Logs.add_log('Updating Pacman database...')
+
+        pacman = Pacman.get_instance()
+        pacman.init_keys(root_mountpoint)
+
+        Progress.get_instance().progress = 6.1
+
+        pacman.update_all_packages(root_mountpoint)
+
+        Progress.get_instance().progress = 6.3
+
+        tweaks = Tweaks.get_instance()
+
+        tweaks.apply_settings(Settings.get_instance(), root_mountpoint)
+        tweaks.begin_features_installation()
+
+        Logs.add_log('Done.')
+
+        Progress.get_instance().progress = 1
+        Stage.get_instance().stage = 3
+
+        Result.get_instance().success = True
     
     def start(self):
         threading.Thread(target=self.run).start()
