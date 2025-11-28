@@ -70,8 +70,7 @@ class Basesystem(ProcessUtils):
 
     def rsync_with_progress(self, source: str, destination: str, options: list[str] = None):
         if options is None:
-            # --info=progress2 сообщает байты в первом поле
-            options = ['-ah', '--info=progress2']
+            options = ['-a', '--info=progress2']
 
         command = ['rsync'] + options + [source, destination]
 
@@ -89,12 +88,18 @@ class Basesystem(ProcessUtils):
             for line in process.stdout:
                 stripped_line = line.strip()
 
-                if '%' in stripped_line and '(' in stripped_line and ')' in stripped_line:
+                if '%' in stripped_line and ('xfr#' in stripped_line or 'to-chk' in stripped_line):
                     try:
                         parts = stripped_line.split()
 
-                        if len(parts) >= 6:
+                        if len(parts) >= 4:
                             bytes_transferred_raw = parts[0] 
+                            
+                            try:
+                                clean_bytes_str = bytes_transferred_raw.replace(',', '')
+                                current_bytes = int(clean_bytes_str)
+                            except ValueError:
+                                current_bytes = last_bytes_transferred
                             
                             percent_match = re.search(r'(\d+)\%', parts[1])
                             percent = int(percent_match.group(1)) if percent_match else 0
@@ -102,42 +107,32 @@ class Basesystem(ProcessUtils):
                             speed = parts[2]
                             eta = parts[3]
                             
-                            xfr_to_chk_raw = " ".join(parts[4:])
-                            inner_content = xfr_to_chk_raw.strip('()')
-                            inner_parts = [p.strip() for p in inner_content.split(',', 1)]
+                            xfr = ""
+                            to_chk = ""
                             
-                            try:
-                                size_match = re.match(r"([\d\.]+)([KkMmGgTt]?)$", bytes_transferred_raw)
-                                if size_match:
-                                    value = float(size_match.group(1))
-                                    unit = size_match.group(2).upper()
-                                    
-                                    unit_multipliers = {'': 1, 'K': 1024, 'M': 1048576, 'G': 1073741824, 'T': 1099511627776}
-                                    current_bytes = int(value * unit_multipliers.get(unit, 1))
-                                else:
-                                    current_bytes = last_bytes_transferred
-                            except (ValueError, IndexError):
-                                current_bytes = last_bytes_transferred
-                            
+                            remaining_parts = parts[4:]
+                            if remaining_parts:
+                                raw_info = " ".join(remaining_parts).strip('()')
+                                info_segments = [s.strip() for s in raw_info.split(',')]
+                                
+                                if len(info_segments) > 0:
+                                    xfr = info_segments[0]
+                                if len(info_segments) > 1:
+                                    to_chk = info_segments[1]
+
                             self.accumulated_bytes = max(self.accumulated_bytes, current_bytes)
                             last_bytes_transferred = self.accumulated_bytes
 
-                            if len(inner_parts) == 2:
-                                xfr = inner_parts[0]
-                                to_chk = inner_parts[1]
-
-                                yield {
-                                    'type': 'progress',
-                                    'bytes_transferred': bytes_transferred_raw,
-                                    'current_bytes_total': self.accumulated_bytes,
-                                    'percent': percent,
-                                    'speed': speed,
-                                    'eta': eta,
-                                    'xfr': xfr,
-                                    'to_chk': to_chk
-                                }
-                            else:
-                                yield {'type': 'message', 'content': stripped_line}
+                            yield {
+                                'type': 'progress',
+                                'bytes_transferred': bytes_transferred_raw,
+                                'current_bytes_total': self.accumulated_bytes,
+                                'percent': percent,
+                                'speed': speed,
+                                'eta': eta,
+                                'xfr': xfr,
+                                'to_chk': to_chk
+                            }
                         else:
                             yield {'type': 'message', 'content': stripped_line}
                     except (ValueError, IndexError):
@@ -167,10 +162,10 @@ class Basesystem(ProcessUtils):
             "/var/cache/*", "/var/lib/systemd/coredump/*"]
         
         flags_for_exceptions = list(map(lambda x: '--exclude='+x, exceptions))
+        
         rsync_options = ['-a', '--info=progress2'] + flags_for_exceptions
         final_progress_number = 0.3
         
-        # 1. ФАЗА ОЦЕНКИ (DRY-RUN)
         print("Starting rsync dry-run for size estimation...")
         self.total_bytes_to_copy = self.rsync_dry_run_total_size(
             from_dir + '/',
@@ -193,16 +188,20 @@ class Basesystem(ProcessUtils):
                 else:
                     progress_ratio = update['percent'] / 100.0
                 
+                if progress_ratio > 1.0:
+                    progress_ratio = 1.0
+
                 current_progress_update = progress_ratio * final_progress_number
                 
                 current_total_progress = Progress.get_instance().progress
                 
-                Progress.get_instance().progress = max(current_total_progress, current_progress_update)
+                Progress.get_instance().progress = current_progress_update 
                 
                 print(f"Progress: {progress_ratio*100:.2f}% ({update['current_bytes_total']}/{self.total_bytes_to_copy} B) | Speed: {update['speed']} | ETA: {update['eta']}")
 
             elif update['type'] == 'message':
-                print(f"rsync message: {update['content']}")
+                if update['content'].strip():
+                    print(f"rsync message: {update['content']}")
 
             elif update['type'] == 'error':
                 Logs.add_log(f"Error: {update['message']}")
@@ -210,7 +209,6 @@ class Basesystem(ProcessUtils):
                 return False
 
             elif update['type'] == 'completed':
-                Progress.get_instance().progress = current_total_progress + final_progress_number 
                 print(update['message'])
 
         print("rsync done")
