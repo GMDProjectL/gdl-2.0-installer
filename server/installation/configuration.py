@@ -105,7 +105,11 @@ class Configuration:
         return result[0] == 0
     
     def change_user_password(self, username: str, password: str):
-        return os.system(f'echo "{password + '\n' + password + '\n'}" > arch-chroot {self._root} passwd {username}') == 0
+        result = ProcessUtils.get_instance().run_command_in_chroot([
+            'sh', '-c', f'echo -e "{password}\n{password}" | passwd {username}'
+        ], self._root)
+
+        return result[0] == 0
     
     def set_root_password(self, password: str):
         return self.change_user_password('root', password)
