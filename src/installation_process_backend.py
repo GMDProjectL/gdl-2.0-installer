@@ -74,6 +74,8 @@ class InstallationProcessBackend(QObject):
         
         self.server_event_thread.start()
 
+        requests.post(installer.local_server_url + '/run_installation')
+
     # logs
     @Property(str, notify=logsChanged)
     def installationLogs(self):
