@@ -11,6 +11,8 @@ Kirigami.Page {
         translatorBackend.language
     )
 
+    property var rounded_percentage: (installationProcessBackend.progress * 100).toFixed(0)
+
     Component {
         id: errorDialogComponent
         Components.InstallationError {}
@@ -74,9 +76,14 @@ Kirigami.Page {
                 Layout.fillWidth: true
                 spacing: 10
 
-                ProgressBar {
-                    Layout.fillWidth: true
-                    value: installationProcessBackend.progress
+                RowLayout {
+                    ProgressBar {
+                        Layout.fillWidth: true
+                        value: installationProcessBackend.progress
+                    }
+                    Label {
+                        text: rounded_percentage + "%"
+                    }
                 }
 
                 RowLayout {
