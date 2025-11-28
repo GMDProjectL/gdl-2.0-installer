@@ -162,11 +162,11 @@ class InstallThread():
         pacman = Pacman.get_instance()
         pacman.init_keys(root_mountpoint)
 
-        Progress.get_instance().progress = 6.1
+        Progress.get_instance().progress = 0.61
 
         pacman.update_all_packages(root_mountpoint)
 
-        Progress.get_instance().progress = 6.3
+        Progress.get_instance().progress = 0.63
 
         tweaks = Tweaks.get_instance()
 
