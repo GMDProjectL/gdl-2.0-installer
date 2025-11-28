@@ -18,11 +18,8 @@ class Configuration:
 
         return cls._instance
 
-    def __init__(self, boot_files_location: str, root: str):
+    def __init__(self):
         if not hasattr(self, '_initialized') or not self._initialized:
-            self._boot_files_location = boot_files_location
-            self._root = root
-
             self._initialized = True
 
     @classmethod
@@ -31,6 +28,10 @@ class Configuration:
             cls()
         
         return cls._instance
+    
+    def set_settings(self, boot_files_location: str, root: str):
+        self._boot_files_location = boot_files_location
+        self._root = root
     
     def copy_boot_files(self):
         result = ProcessUtils.get_instance().run_command([

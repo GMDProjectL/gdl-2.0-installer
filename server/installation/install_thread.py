@@ -39,7 +39,8 @@ class InstallThread():
             if point['name'] == self.settings.root_partition and point["mountpoint"].strip() != '':
                 mounts.unmount(self.settings.root_partition)
         
-        configuration = Configuration(boot_source, root_mountpoint)
+        configuration = Configuration().get_instance()
+        configuration.set_settings(boot_source, root_mountpoint)
 
         if not Disks.get_instance().format_ext4(self.settings.root_partition):
             Result.get_instance().error = True
