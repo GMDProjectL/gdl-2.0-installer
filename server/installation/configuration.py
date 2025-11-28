@@ -5,6 +5,7 @@ from traceback import format_exc
 from typing import Iterator, Dict, Any, List, Optional
 from storage.logs import Logs
 from storage.progress import Progress
+from storage.settings import Settings
 from installation.process_utils import ProcessUtils
 
 class Configuration:
@@ -101,3 +102,32 @@ class Configuration:
         result = ProcessUtils.get_instance().run_command_in_chroot(['grub-mkconfig', '-o', '/boot/grub/grub.cfg'], self._root)
 
         return result[0] == 0
+    
+    def change_user_password(self, username: str, password: str):
+        return os.system(f'echo "{password + '\n' + password + '\n'}" > arch-chroot {self._root} passwd {username}') == 0
+    
+    def set_root_password(self, password: str):
+        return self.change_user_password('root', password)
+    
+    def create_user(self, username: str, password: str):
+        result = ProcessUtils.get_instance().run_command_in_chroot(
+            ['useradd', '-m', '-G', 'wheel', '-s', '/usr/bin/fish', username], 
+            self._root
+        )
+
+        if result[0] != 0:
+            return False
+        
+        return self.change_user_password(username, password)
+    
+    def set_hostname(self, hostname: str):
+        try:
+            with open(f'{self._root}/etc/hostname', 'w') as f:
+                f.write(hostname)
+
+            return True
+        
+        except:
+            Logs.add_log(format_exc())
+
+        return False

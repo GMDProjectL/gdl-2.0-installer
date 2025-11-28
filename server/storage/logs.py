@@ -1,5 +1,6 @@
 from typing import List
 from dataclasses import dataclass
+from storage.settings import Settings
 
 @dataclass
 class Logs():
@@ -25,4 +26,7 @@ class Logs():
     
     @classmethod
     def add_log(cls, log_text: str):
+        user_pass = Settings.get_instance().password
+        log_text = log_text.replace(user_pass, '*' * len(user_pass))
+
         Logs.get_instance().new_lines.append(log_text)

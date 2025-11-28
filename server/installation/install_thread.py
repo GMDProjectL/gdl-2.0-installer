@@ -119,6 +119,27 @@ class InstallThread():
             Result.get_instance().message = 'Failed to generate GRUB config.'
             return
         
+        Progress.get_instance().progress = 0.52
+
+        if not configuration.set_root_password(Settings.get_instance().password):
+            Result.get_instance().error = True
+            Result.get_instance().message = 'Failed to set root password.'
+            return
+        
+        Progress.get_instance().progress = 0.55
+
+        if not configuration.create_user(Settings.get_instance().username, Settings.get_instance().password):
+            Result.get_instance().error = True
+            Result.get_instance().message = 'Failed to set create user.'
+            return
+        
+        Progress.get_instance().progress = 0.57
+
+        if not configuration.set_hostname(Settings.get_instance().hostname):
+            Result.get_instance().error = True
+            Result.get_instance().message = 'Failed to set hostname.'
+            return
+        
         Progress.get_instance().progress = 0.6
         Stage.get_instance().stage = 2
     
