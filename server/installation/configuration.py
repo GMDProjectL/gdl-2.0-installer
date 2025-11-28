@@ -133,16 +133,6 @@ class Configuration:
 
         return False
     
-    def remove_autologin(self):
-        try:
-            os.remove(self._root + '/etc/sddm.conf.d/autologin.conf')
-
-            return True
-        except:
-            Logs.add_log(format_exc())
-
-        return False
-    
     def set_hostname(self, hostname: str):
         try:
             with open(f'{self._root}/etc/hostname', 'w') as f:

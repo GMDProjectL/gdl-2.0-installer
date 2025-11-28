@@ -141,11 +141,6 @@ class InstallThread():
                 Result.get_instance().error = True
                 Result.get_instance().message = 'Failed to setup autologin.'
                 return
-        else:
-            if not configuration.remove_autologin():
-                Result.get_instance().error = True
-                Result.get_instance().message = 'Failed to remove autologin.'
-                return
 
         if not configuration.set_hostname(Settings.get_instance().hostname):
             Result.get_instance().error = True
