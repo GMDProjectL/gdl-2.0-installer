@@ -62,7 +62,7 @@ class MountService:
         Mount a device to a mount point.
         """
         try:
-            result = self.process_utils.run_command(['mount', '-m', device, mountpoint])
+            result = self.process_utils.run_command(['mount', '-m', '/dev/' + device, mountpoint])
 
             if result[0] == 0:
                 Logs.add_log(f"Successfully mounted {device} to {mountpoint}")
@@ -80,7 +80,7 @@ class MountService:
         Unmount a device.
         """
         try:
-            result = self.process_utils.run_command(['umount', '-Al', device])
+            result = self.process_utils.run_command(['umount', '-Al', '/dev/' + device])
 
             if result[0] == 0:
                 Logs.add_log(f"Successfully unmounted {device}")
