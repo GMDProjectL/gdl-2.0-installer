@@ -1,33 +1,14 @@
 import os
 import shutil
-import subprocess
 from traceback import format_exc
-from typing import Iterator, Dict, Any, List, Optional
+from utils.singleton import Singleton
 from storage.logs import Logs
-from storage.progress import Progress
-from storage.settings import Settings
 from installation.process_utils import ProcessUtils
 
-class Configuration:
-    _instance: Optional['Configuration'] = None
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super(Configuration, cls).__new__(cls)
-            cls._instance._initialized = False 
-
-        return cls._instance
-
+class Configuration(Singleton):
     def __init__(self):
-        if not hasattr(self, '_initialized') or not self._initialized:
+        if not hasattr(self, '_initialized'):
             self._initialized = True
-
-    @classmethod
-    def get_instance(cls) -> 'Configuration':
-        if cls._instance is None:
-            cls()
-        
-        return cls._instance
     
     def set_settings(self, boot_files_location: str, root: str):
         self._boot_files_location = boot_files_location

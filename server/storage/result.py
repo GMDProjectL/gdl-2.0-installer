@@ -1,26 +1,12 @@
 from typing import List
 from dataclasses import dataclass
+from utils.singleton import Singleton
 
 @dataclass
-class Result():
-    _instance = None
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super(Result, cls).__new__(cls)
-
-        return cls._instance
-
+class Result(Singleton):
     def __init__(self):
         if not hasattr(self, '_initialized'):
             self.error = False
             self.success = False
             self.message = ""
             self._initialized = True
-    
-    @classmethod
-    def get_instance(cls) -> 'Result':
-        if cls._instance is None:
-            cls()
-        
-        return cls._instance

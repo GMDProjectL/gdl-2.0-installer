@@ -1,6 +1,3 @@
-from installation.pacman import Pacman
-from traceback import format_exc
-from typing import Optional
 from storage.settings import Settings
 
 class TweakBase:

@@ -1,15 +1,8 @@
 from dataclasses import dataclass
+from utils.singleton import Singleton
 
 @dataclass
-class Settings():
-    _instance = None
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super(Settings, cls).__new__(cls)
-
-        return cls._instance
-
+class Settings(Singleton):
     def __init__(self):
         if not hasattr(self, '_initialized'):
             # user profile
@@ -42,10 +35,3 @@ class Settings():
             self.install_plasma_sdk = False
             self.install_qt_creator = False
             self._initialized = True
-
-    @classmethod
-    def get_instance(cls) -> 'Settings':
-        if cls._instance is None:
-            cls()
-        
-        return cls._instance
