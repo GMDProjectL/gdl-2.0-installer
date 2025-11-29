@@ -5,7 +5,7 @@ class Internet(TweakBase):
     def install_firefox(self):
         pacman = Pacman.get_instance()
 
-        if pacman.remove_packages(self._root, ['chromium']):
+        if not pacman.remove_packages(self._root, ['chromium']):
             return False
 
         return pacman.install_packages(self._root, ['firefox'])[0] == 0
