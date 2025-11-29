@@ -13,7 +13,7 @@ from src.global_installer_state import GlobalInstallerState
 
 def main():
     app = QGuiApplication(sys.argv)
-    app.setWindowIcon(QIcon('images/run-build-install.svg'))
+    app.setWindowIcon(QIcon('images/squid.png'))
 
     engine = QQmlApplicationEngine()
 
