@@ -76,13 +76,10 @@ class ConfigService:
     def fix_vconsole(self) -> bool:
         try:
             vconsole_path = os.path.join(self._root, 'etc', 'vconsole.conf')
-            if os.path.exists(vconsole_path):
-                with open(vconsole_path, 'r') as f:
-                    content = f.read()
-                if 'KEYMAP=' not in content:
-                    with open(vconsole_path, 'a') as f:
-                        f.write('KEYMAP=us\n')
-                Logs.add_log("Fixed vconsole.conf")
+            with open(vconsole_path, 'w') as f:
+                f.write('KEYMAP=us\n')
+            Logs.add_log("Fixed vconsole.conf")
+            
             return True
         except Exception as e:
             Logs.add_log(f"Failed to fix vconsole: {e}")
