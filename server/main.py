@@ -16,6 +16,12 @@ result = Result.get_instance()
 stage = Stage.get_instance()
 progress = Progress.get_instance()
 
+try:
+    import systemd.daemon
+    systemd.daemon.notify('READY=1')
+except:
+    print('No systemd today.')
+
 app = Flask(__name__)
 
 @app.route("/")
