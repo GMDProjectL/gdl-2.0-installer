@@ -1,6 +1,8 @@
 from typing import Optional
 from storage.progress import Progress
 from storage.settings import Settings
+from storage.result import Result
+from services.pacman_service import PacmanService
 from .games import Games
 from .internet import Internet
 from .sysutils import SystemUtils
@@ -27,15 +29,16 @@ class Tweaks:
         
         return cls._instance
     
-    def apply_settings(self, settings: Settings, root: str):
+    def apply_settings(self, settings: Settings, root: str, pacman_service: PacmanService):
         self._settings = settings
         self._root = root
+        self._pacman_service = pacman_service
     
     def begin_features_installation(self):
-        games = Games(self._settings, self._root)
-        internet = Internet(self._settings, self._root)
-        sysutils = SystemUtils(self._settings, self._root)
-        multimedia = Multimedia(self._settings, self._root)
+        games = Games(self._settings, self._root, self._pacman_service)
+        internet = Internet(self._settings, self._root, self._pacman_service)
+        sysutils = SystemUtils(self._settings, self._root, self._pacman_service)
+        multimedia = Multimedia(self._settings, self._root, self._pacman_service)
 
         if self._settings.install_steam:
             games.install_steam()

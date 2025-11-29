@@ -171,7 +171,7 @@ class InstallThread():
 
         tweaks = Tweaks.get_instance()
 
-        tweaks.apply_settings(Settings.get_instance(), root_mountpoint)
+        tweaks.apply_settings(Settings.get_instance(), root_mountpoint, self.pacman_service)
         tweaks.begin_features_installation()
 
         Logs.add_log('Done.')
