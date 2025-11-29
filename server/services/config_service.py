@@ -35,7 +35,7 @@ class ConfigService:
 
     def remove_archiso_mkinitcpio_conf(self) -> bool:
         try:
-            path = os.path.join(self._root, 'etc', 'mkinitcpio.conf')
+            path = os.path.join(self._root, 'etc', 'mkinitcpio.conf.d', 'archiso.conf')
             if os.path.exists(path):
                 os.remove(path)
                 Logs.add_log("Removed archiso mkinitcpio.conf")
