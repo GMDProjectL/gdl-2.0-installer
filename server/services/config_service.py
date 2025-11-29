@@ -46,7 +46,7 @@ class ConfigService:
 
     def copy_linux_mkinitcpio_preset(self) -> bool:
         try:
-            src = os.path.join(self._boot_files_location, '..', 'resources', 'linux.preset')
+            src = f'./resources/linux.preset'
             dst = os.path.join(self._root, 'etc', 'mkinitcpio.d', 'linux.preset')
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copy2(src, dst)
