@@ -174,8 +174,8 @@ class Basesystem:
         
         EXCEPTIONS = [
             "/dev/*", "/proc/*", "/sys/*",
-            "/tmp/*", "/run/*","/mnt/*", 
-            "/media/*","/lost+found","/etc/fstab",
+            "/tmp/*", "/run/*","/mnt/*", "/opt/installer/*", "/etc/xdg/autostart/installer-gui.desktop",
+            "/media/*","/lost+found","/etc/fstab", "/usr/lib/systemd/system/installer-server.service",
             "/home/*","/boot/*", "/var/lib/libvirt/*", 
             "/var/cache/*", "/var/lib/systemd/coredump/*"]
         
